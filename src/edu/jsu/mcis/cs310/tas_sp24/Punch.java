@@ -21,4 +21,11 @@ public class Punch {
     public String getpunchType() {
         return punchType;
     }
+    
+    @Override
+    public String toString() {
+        
+        StringBuilder p = new StringBuilder();
+        
+    }
 }
