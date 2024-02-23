@@ -38,10 +38,23 @@ public class Punch {
         return localDateTime;
     }
     
-    public static void printOriginal() {
+    public String printOriginal() {
         
-        System.out.println();
-       
+        return "ID: " + id + "/nTermID: " + termid + "/nBadge: " + badge + "/nLocalDateTime: " + localDateTime + "/nPunchType: " + punchType; 
+    }
+    
+    @Override
+    public String toString() {
+        
+        /*
+        StringBuilder p = new StringBuilder();
+        
+        p.append('#').append(termid).append(' ');
+        p.append('(').append(badge).append(')');
+        p.append('(').append(punchType).append(')');
+        */
+        
+        return printOriginal();
         
     }
 }
