@@ -38,16 +38,10 @@ public class Punch {
         return localDateTime;
     }
     
-    @Override
-    public String toString() {
+    public static void printOriginal() {
         
-        StringBuilder p = new StringBuilder();
-        
-        p.append('#').append(termid).append(' ');
-        p.append('(').append(badge).append(')');
-        p.append('(').append(punchType).append(')');
-        
-        return p.toString();
+        System.out.println();
+       
         
     }
 }
