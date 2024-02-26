@@ -1,5 +1,7 @@
 package edu.jsu.mcis.cs310.tas_sp24;
 
+// Punch Model Class Complete - Jalen
+
 public class Punch {
     
     private final String termid, badge, punchType;
