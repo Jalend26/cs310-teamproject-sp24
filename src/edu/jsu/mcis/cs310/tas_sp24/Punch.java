@@ -8,6 +8,8 @@ public class Punch {
         this.termid = termid;
         this.badge = badge;
         this.punchType = punchType;
+        this.id = null;
+        this.localDateTime = null;
     }
     
     public String gettermid() {
