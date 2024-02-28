@@ -24,18 +24,6 @@ public class Shift {
             return defaultschedule.getStopTime();
         }
 
-    public int getGracePeriod(){
-            return defaultschedule.getGracePeriod();
-        }
-
-    public int getDockPenalty(){
-            return defaultschedule.getDockPenalty();
-        }
-
-    public int getRoundInterval(){
-            return defaultschedule.getRoundInterval();
-        }
-
     public LocalTime getLunchStart() {
             return defaultschedule.getLunchStart();
         }
