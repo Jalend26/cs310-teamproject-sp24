@@ -41,7 +41,7 @@ public class PunchDAO {
                 if (pst != null) pst.close();
                 if (conn != null) conn.close();
             } catch (SQLException ex) {
-                // Handle the exception
+                throw new DAOException(ex.getMessage());
             }
         }
         

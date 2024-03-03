@@ -25,6 +25,15 @@ public class Main {
         System.err.println("Test Badge: " + b.toString());
         
         // Test
+        
+        // Get ShiftDAO
+        ShiftDAO shiftDAO = daoFactory.getShiftDAO();
+
+        // Find Shift
+        Shift s = shiftDAO.find(1); // Assuming '1' is a valid shift ID in your database
+
+        // Output should match the expected shift details
+        System.err.println("Test Shift: " + s.toString());
 
     }
 
