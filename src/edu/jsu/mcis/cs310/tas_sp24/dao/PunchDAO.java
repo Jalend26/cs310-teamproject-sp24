@@ -50,5 +50,38 @@ public class PunchDAO {
         
         
     }
+    public String find(int termid) {
+
+        
+        String result = "[]";
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM punch WHERE termid = ?";
+        try {
+            conn = daoFactory.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, termid);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                result = rs.getString("id");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception", e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                throw new DAOException(ex.getMessage());
+            }
+        }
+        
+        
+        return result;
+        
+        
+    }
     
 }

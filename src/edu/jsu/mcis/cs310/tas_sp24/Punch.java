@@ -40,7 +40,6 @@ public class Punch {
         this.termid = termid;
         this.badge = badge;
         this.punchType = punchType;
-        
     }
     
     public int getid(){

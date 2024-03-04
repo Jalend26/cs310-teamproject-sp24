@@ -11,7 +11,9 @@ public class ShiftDAO {
     public ShiftDAO(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
-
+    
+    
+    //first find method
     public Shift find(int id) {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -31,9 +33,12 @@ public class ShiftDAO {
                 parameters.put("lunchStart", rs.getString("lunchstart"));
                 parameters.put("lunchStop", rs.getString("lunchstop"));
                 
+                //----------------------------------------------
                 //why is there an error for these variables?
-                parameters.put("roundinterval",Integer.toString(roundinterval));
-                parameters.put("graceperioid", Integer.toString(graceperiod));
+                parameters.put("roundInterval",rs.getInt("roundInterval"));
+                parameters.put("gracePerioid", rs.getInt("gracePeriod"));
+                //add the rest/modified variables to this
+                //----------------------------------------------
                 
                 return new Shift(parameters);
             }
@@ -50,6 +55,8 @@ public class ShiftDAO {
         }
         return null;
     }
+    
+    //ADD SECOND FIND METHOD
 
     
 }

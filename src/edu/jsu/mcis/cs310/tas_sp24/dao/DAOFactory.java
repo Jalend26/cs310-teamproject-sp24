@@ -35,8 +35,11 @@ public final class DAOFactory {
     public BadgeDAO getBadgeDAO() {
         return new BadgeDAO(this);
     }
-    public ShiftDAO getShiftDAO(){
+    public ShiftDAO getShiftDAO(){ //added get method for shiftDAO
         return new ShiftDAO(this);
+    }
+    public PunchDAO getPunchDAO(){
+        return new PunchDAO(this); //added get method for PunchDAO
     }
 
 }
