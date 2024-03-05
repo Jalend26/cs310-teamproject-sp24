@@ -41,5 +41,7 @@ public final class DAOFactory {
     public PunchDAO getPunchDAO(){
         return new PunchDAO(this); //added get method for PunchDAO
     }
-
+    public DepartmentDAO getDepartmentDAO() {
+        return new DepartmentDAO(this); // added getter method for DepartmentDAO - William
+    }
 }
