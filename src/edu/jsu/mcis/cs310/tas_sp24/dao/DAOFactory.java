@@ -9,7 +9,7 @@ public final class DAOFactory {
     private static final String PROPERTY_PASSWORD = "password";
 
     private final String url, username, password;
-    
+
     private Connection conn = null;
 
     public DAOFactory(String prefix) {
@@ -35,12 +35,15 @@ public final class DAOFactory {
     public BadgeDAO getBadgeDAO() {
         return new BadgeDAO(this);
     }
-    public ShiftDAO getShiftDAO(){ //added get method for shiftDAO
+
+    public ShiftDAO getShiftDAO() { //added get method for shiftDAO
         return new ShiftDAO(this);
     }
-    public PunchDAO getPunchDAO(){
+
+    public PunchDAO getPunchDAO() {
         return new PunchDAO(this); //added get method for PunchDAO
     }
+
     public DepartmentDAO getDepartmentDAO() {
         return new DepartmentDAO(this); // added getter method for DepartmentDAO - William
     }
