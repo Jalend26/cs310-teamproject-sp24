@@ -2,7 +2,8 @@ package edu.jsu.mcis.cs310.tas_sp24;
 
 public class Department {
 
-    private int ID, terminalID;
+    private final int ID;
+    private final int terminalID;
     private final String description;
 
     public Department(int id, String desc, int termID) {
