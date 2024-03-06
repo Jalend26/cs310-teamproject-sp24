@@ -57,6 +57,56 @@ public class ShiftDAO {
     }
     
     //ADD SECOND FIND METHOD
+    public Shift find(Badge badge) {
+        Shift shift = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection conn = null; // Move the declaration outside the try block
+    
+        try {
+            // Get a connection from the DAOFactory
+            conn = daoFactory.getConnection(); // Assign the connection here
+    
+            // Check if the connection is valid
+            if (conn.isValid(0)) {
+                // find the shift ID by the badge ID
+                ps = conn.prepareStatement(QUERY_BADGE);
+                ps.setString(1, badge.getId());
+    
+                // Execute 
+                boolean hasResults = ps.execute();
+    
+                // If there are results, process them
+                if (hasResults) {
+                    rs = ps.getResultSet();
+    
+                    // Move to first  
+                    if (rs.next()) {
+                        // Retrieve the shift ID matching the badge
+                        int shiftId = rs.getInt("shiftid");
+                        
+                        // Use the existing find method to get the Shift object
+                        shift = find(shiftId);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception", e);
+        } finally { 
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                throw new DAOException(ex.getMessage());
+            }
+        }
+        
+        
+        return shift;
+    }
+}
+    
 
     
 }
