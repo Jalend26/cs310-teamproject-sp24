@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class ShiftDAO {
     private final DAOFactory daoFactory;
+    private static final String QUERY_BADGE = "SELECT shiftid FROM badge WHERE id = ?";     //query to find shift id by badge id
+
 
     public ShiftDAO(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
