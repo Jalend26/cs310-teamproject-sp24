@@ -16,8 +16,9 @@ public class Employee {
     private final char middleName;
     private final Shift shift;
     private final EmployeeType description;
+    private final Department department;
     
-    public Employee(int id, String firstName, String lastName, char middleName, Shift shift, LocalDateTime active, EmployeeType description, Badge badge) {
+    public Employee(int id, String firstName, String lastName, char middleName, Shift shift, LocalDateTime active, EmployeeType description, Badge badge, Department department) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +27,7 @@ public class Employee {
         this.active = active;
         this.description = description;
         this.badge = badge;
+        this.department = department;
     }
     
     public int getId() {
@@ -60,8 +62,19 @@ public class Employee {
         return description;
     }
     
+    public Department getdepartment() {
+        return department;
+    }
+    
     @Override
     public String toString() {
-        return "ID:" + id + ":" + lastName ;
+        /*
+        StringBuilder s = new StringBuilder();
+        
+        s.append('#').append(id).append(' ');
+        
+        return s.toString();
+        */
+        return "ID #" + id + ": " + lastName + ", " + firstName + " " + middleName + " (" + badge + "), " + " Type:  " + description + ", " + " Department: " + department + ", " + " Active: " + active;
     }
 }
