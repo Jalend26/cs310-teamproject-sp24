@@ -51,26 +51,42 @@ public class ShiftDAO {
     
     
     //ADD SECOND FIND METHOD
-    public Shift find(Badge badge) {
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        String query = "SELECT shiftid FROM employee WHERE badgeid = ?";
+    public Shift find(Badge badge) throws SQLException {
+        Shift shift = null;
         
-        try{
-            conn=daoFactory.getConnection();
-            pst = conn.prepareStatement(query);
-            pst.setString(1,badge.getId());
-            rs = pst.executeQuery();
+        
+        String query = "SELECT s.* FROM shift s JOIN employee e ON s.id = e.shiftid WHERE e.badgeid = ?";
+        
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            ps.setString(1, badge.getId());
+            
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int shiftId = rs.getInt("shiftid");
-                    // Use the first find method to get the Shift object
-                    return find(shiftId);
+                    HashMap<String, String> parameters = new HashMap<>();
+                    
+                    // Mapping the ResultSet to HashMap as expected by the Shift constructor
+                    parameters.put("id", String.valueOf(rs.getInt("id")));
+                    parameters.put("description", rs.getString("description"));
+                    parameters.put("shiftstart", rs.getTime("start").toString()); 
+                    parameters.put("shiftstop", rs.getTime("stop").toString()); 
+                    parameters.put("lunchStart", rs.getTime("lunchstart").toString());
+                    parameters.put("lunchStop", rs.getTime("lunchstop").toString());
+                    parameters.put("roundInterval", String.valueOf(rs.getInt("interval")));
+                    parameters.put("gracePeriod", String.valueOf(rs.getInt("grace")));
+                    parameters.put("dockPenalty", String.valueOf(rs.getInt("dock")));
+                    parameters.put("lunchDeduct", String.valueOf(rs.getInt("lunchdeduct")));
+                    
+                    // Create the Shift object
+                    shift = new Shift(parameters);
                 }
+            } catch (SQLException e) {
+                throw new DAOException("SQL Exception", e);
             }
-        catch (SQLException e) {
-            throw new DAOException(e.getMessage(), e);
-        }
-        return null;
+       
+        
+        return shift;
     }
-}
+    }
+}    
