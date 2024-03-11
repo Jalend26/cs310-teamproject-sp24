@@ -5,110 +5,72 @@ import edu.jsu.mcis.cs310.tas_sp24.Badge;
 import java.sql.*;
 import java.util.HashMap;
 
+//COMPLETED
 public class ShiftDAO {
     private final DAOFactory daoFactory;
-    private static final String QUERY_BADGE = "SELECT shiftid FROM badge WHERE id = ?";     //query to find shift id by badge id
-
 
     public ShiftDAO(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
     
-    
-    //first find method
     public Shift find(int id) {
+        Shift shift = null;
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         String query = "SELECT * FROM shift WHERE id = ?";
+        
+        
         try {
             conn = daoFactory.getConnection();
             pst = conn.prepareStatement(query);
             pst.setInt(1, id);
             rs = pst.executeQuery();
+        
             if (rs.next()) {
-                HashMap<String, String> parameters = new HashMap<>();
-                parameters.put("id", Integer.toString(id));
+               HashMap<String, String> parameters = new HashMap<>();
+                parameters.put("id", Integer.toString(rs.getInt("id")));
                 parameters.put("description", rs.getString("description"));
-                parameters.put("shiftstart", rs.getString("shiftstart"));
-                parameters.put("stop", rs.getString("shiftstop"));
-                parameters.put("lunchStart", rs.getString("lunchstart"));
-                parameters.put("lunchStop", rs.getString("lunchstop"));
+                parameters.put("shiftstart", rs.getTime("shiftstart").toString());
+                parameters.put("shiftstop", rs.getTime("shiftstop").toString());
+                parameters.put("roundinterval", Integer.toString(rs.getInt("roundinterval")));
+                parameters.put("graceperiod", Integer.toString(rs.getInt("graceperiod")));
+                parameters.put("dockpenalty", Integer.toString(rs.getInt("dockpenalty")));
+                parameters.put("lunchstart", rs.getTime("lunchstart").toString());
+                parameters.put("lunchstop", rs.getTime("lunchstop").toString());
+                parameters.put("lunchthreshold", Integer.toString(rs.getInt("lunchthreshold")));
                 
-                //----------------------------------------------
-                //why is there an error for these variables?
-                parameters.put("roundInterval",rs.getInt("roundInterval"));
-                parameters.put("gracePerioid", rs.getInt("gracePeriod"));
-                //add the rest/modified variables to this
-                //----------------------------------------------
-                
-                return new Shift(parameters);
+                shift = new Shift(parameters);
             }
+            
         } catch (SQLException e) {
-            throw new DAOException("SQL Exception", e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                throw new DAOException(ex.getMessage());
-            }
+            throw new DAOException(e.getMessage(), e);
         }
-        return null;
+            return shift;
     }
+    
     
     //ADD SECOND FIND METHOD
     public Shift find(Badge badge) {
-        Shift shift = null;
-        PreparedStatement ps = null;
+        Connection conn = null;
+        PreparedStatement pst = null;
         ResultSet rs = null;
-        Connection conn = null; // Move the declaration outside the try block
-    
-        try {
-            // Get a connection from the DAOFactory
-            conn = daoFactory.getConnection(); // Assign the connection here
-    
-            // Check if the connection is valid
-            if (conn.isValid(0)) {
-                // find the shift ID by the badge ID
-                ps = conn.prepareStatement(QUERY_BADGE);
-                ps.setString(1, badge.getId());
-    
-                // Execute 
-                boolean hasResults = ps.execute();
-    
-                // If there are results, process them
-                if (hasResults) {
-                    rs = ps.getResultSet();
-    
-                    // Move to first  
-                    if (rs.next()) {
-                        // Retrieve the shift ID matching the badge
-                        int shiftId = rs.getInt("shiftid");
-                        
-                        // Use the existing find method to get the Shift object
-                        shift = find(shiftId);
-                    }
+        String query = "SELECT shiftid FROM employee WHERE badgeid = ?";
+        
+        try{
+            conn=daoFactory.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1,badge.getId());
+            rs = pst.executeQuery();
+                if (rs.next()) {
+                    int shiftId = rs.getInt("shiftid");
+                    // Use the first find method to get the Shift object
+                    return find(shiftId);
                 }
             }
-        } catch (SQLException e) {
-            throw new DAOException("SQL Exception", e);
-        } finally { 
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                throw new DAOException(ex.getMessage());
-            }
+        catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e);
         }
-        
-        
-        return shift;
+        return null;
     }
-}
-    
-
-    
 }

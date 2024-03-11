@@ -30,7 +30,7 @@ public class Main {
         ShiftDAO shiftDAO = daoFactory.getShiftDAO();
 
         // Find Shift
-        Shift s = shiftDAO.find(1); // Assuming '1' is a valid shift ID in your database
+        Shift s = shiftDAO.find(1); 
 
         // Output should match the expected shift details
         System.err.println("Test Shift: " + s.toString());

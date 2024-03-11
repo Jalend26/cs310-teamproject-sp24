@@ -3,66 +3,71 @@ package edu.jsu.mcis.cs310.tas_sp24;
 import java.time.LocalTime;
 import java.util.HashMap;
 
+//COMPLETED
 public class Shift {
     private final int id;
     private final String description;
-    private final LocalTime shiftstart, shiftstop, lunchStart, lunchStop; //ask about the threshehold 
-    private final int roundInterval, gracePeriod, dockPenalty, lunchDuration, shiftDuration;
+    private final LocalTime shiftStart, shiftStop, lunchStart, lunchStop;
+    private final int roundInterval, gracePeriod, dockPenalty, lunchThreshold;
+    private final long lunchDuration, shiftDuration; // Calculated in minutes
 
     public Shift(HashMap<String, String> parameters) {
         this.id = Integer.parseInt(parameters.get("id"));
         this.description = parameters.get("description");
-        this.shiftstart = LocalTime.parse(parameters.get("shiftstart"));
-        this.shiftstop = LocalTime.parse(parameters.get("shiftstop"));
-        this.lunchStart = LocalTime.parse(parameters.get("lunchStart"));
-        this.lunchStop = LocalTime.parse(parameters.get("lunchStop"));
-        //-------------------------------
-        this.roundInterval = Integer.parseInt(parameters.get("roundInterval"));
-        this.gracePeriod = Integer.parseInt(parameters.get("gracePerioid"));
-        this.dockPenalty = Integer.parseInt(parameters.get("dockPenalty"));
-        //-------------------------------------
-        this.lunchDuration = Integer.parseInt(parameters.get("lunchDuration"));
-        this.shiftDuration = Integer.parseInt(parameters.get("shiftDuration"));
+        this.shiftStart = LocalTime.parse(parameters.get("shiftstart"));
+        this.shiftStop = LocalTime.parse(parameters.get("shiftstop"));
+        this.lunchStart = LocalTime.parse(parameters.get("lunchstart"));
+        this.lunchStop = LocalTime.parse(parameters.get("lunchstop"));
+        this.roundInterval = Integer.parseInt(parameters.get("roundinterval"));
+        this.gracePeriod = Integer.parseInt(parameters.get("graceperiod"));
+        this.dockPenalty = Integer.parseInt(parameters.get("dockpenalty"));
+        this.lunchThreshold = Integer.parseInt(parameters.get("lunchthreshold"));
+        // Calculate durations based on provided start and stop times
+        this.lunchDuration = (int) java.time.Duration.between(lunchStart, lunchStop).toMinutes();
+        this.shiftDuration = (int) java.time.Duration.between(shiftStart, shiftStop).toMinutes();
     }
-    
-    public int getID(){
-        return id;
+
+    // Getters
+    public int getId() {
+        return id; 
     }
-    public String getDescription(){
-        return description;
+    public String getDescription() { 
+        return description; 
     }
-    public LocalTime getStart(){
-        return shiftstart;
+    public LocalTime getShiftStart() { 
+        return shiftStart; 
     }
-    public int getRoundInterval(){
-        return roundInterval;
+    public LocalTime getShiftStop() { 
+        return shiftStop; 
     }
-    public int getGracePerioid(){
-        return gracePeriod;
-    }
-    public int getDockPenalty(){
-        return dockPenalty;
-    }
-    
-    public LocalTime getStop(){
-        return shiftstop;
-    }
-    public LocalTime getLunchStart(){
+    public LocalTime getLunchStart() { 
         return lunchStart;
     }
-    public LocalTime getLunchStop(){
-        return lunchStop;
+    public LocalTime getLunchStop() { 
+        return lunchStop; 
     }
-    public int getLunchDuration(){
+    public int getRoundInterval() { 
+        return roundInterval; 
+    }
+    public int getGracePeriod() { 
+        return gracePeriod;
+    }
+    public int getDockPenalty() { 
+        return dockPenalty;
+    }
+    public int getLunchThreshold() {
+        return lunchThreshold; 
+    }
+    public long getLunchDuration() { 
         return lunchDuration;
     }
-    public int getShiftDuration(){
-        return shiftDuration;
+    public long getShiftDuration() { 
+        return shiftDuration; 
     }
-    //STILL NEED TO ADD SHIFT & LUNCH DURATION CALCULATIONS
+
     @Override
     public String toString() {
         return String.format("%s: %s - %s (%d minutes); Lunch: %s - %s (%d minutes)",
-                description, shiftstart, shiftstop, shiftDuration, lunchStart, lunchStop, lunchDuration);
+                description, shiftStart, shiftStop, shiftDuration, lunchStart, lunchStop, lunchDuration);
     }
 }

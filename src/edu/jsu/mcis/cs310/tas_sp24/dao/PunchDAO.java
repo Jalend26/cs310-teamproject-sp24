@@ -2,11 +2,18 @@ package edu.jsu.mcis.cs310.tas_sp24.dao;
 
 import edu.jsu.mcis.cs310.tas_sp24.Badge;
 import edu.jsu.mcis.cs310.tas_sp24.EventType;
+import edu.jsu.mcis.cs310.tas_sp24.Punch;
+
+
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
+
+//COMPLETTED
 public class PunchDAO {
     
     private final DAOFactory daoFactory;
@@ -14,74 +21,48 @@ public class PunchDAO {
     PunchDAO(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
-    
-    public String find(int termid, Badge badge, EventType punchType) {
-
-        
-        String result = "[]";
-        Connection conn = null;
-        PreparedStatement pst = null;
+    public Punch find(int id) {
+        Punch punch = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM punch WHERE termid = ? AND badgeid = ? AND punchtypeid = ?";
+
+        String query = "SELECT * FROM `event` WHERE id = ?";
+
         try {
-            conn = daoFactory.getConnection();
-            pst = conn.prepareStatement(query);
-            pst.setInt(1, termid);
-            pst.setString(2, badge.getId());
-            pst.setString(3, punchType.toString());
-            rs = pst.executeQuery();
+            // Get a connection from the DAOFactory
+            Connection conn = daoFactory.getConnection();
+            // Prepare the SQL statement
+            ps = conn.prepareStatement(query);
+            // Set the ID parameter
+            ps.setInt(1, id);
+            // Execute the query
+            rs = ps.executeQuery();       
+            // If the result set is not empty
             if (rs.next()) {
-                result = rs.getString("id");
+                // Extract data from the result set
+                int terminalId = rs.getInt("terminalid");
+                String badgeId = rs.getString("badgeid");
+                LocalDateTime timestamp = rs.getTimestamp("timestamp").toLocalDateTime();
+                int eventTypeId = rs.getInt("eventtypeid");
+            
+                // Convert eventtypeid to EventType
+                EventType eventType = EventType.values()[eventTypeId]; 
+            
+                // Create a new Punch object
+                Badge badge = new Badge(badgeId, ""); 
+                punch = new Punch(id, terminalId, badge, timestamp, eventType);
             }
         } catch (SQLException e) {
             throw new DAOException("SQL Exception", e);
-        } finally {
+        } finally { 
             try {
                 if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (conn != null) conn.close();
+                if (ps != null) ps.close();
             } catch (SQLException ex) {
                 throw new DAOException(ex.getMessage());
             }
         }
-        
-        
-        return result;
-        
-        
-    }
-    public String find(int termid) {
 
-        
-        String result = "[]";
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM punch WHERE termid = ?";
-        try {
-            conn = daoFactory.getConnection();
-            pst = conn.prepareStatement(query);
-            pst.setInt(1, termid);
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                result = rs.getString("id");
-            }
-        } catch (SQLException e) {
-            throw new DAOException("SQL Exception", e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                throw new DAOException(ex.getMessage());
-            }
-        }
-        
-        
-        return result;
-        
-        
+    return punch;
     }
-    
 }

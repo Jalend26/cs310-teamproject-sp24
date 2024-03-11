@@ -1,63 +1,78 @@
 package edu.jsu.mcis.cs310.tas_sp24;
 
-// Punch Model Class Complete - Jalen
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+
+//COMPLETED
 
 public class Punch {
     
-    private LocalDateTime originalTime, adjustedTime;
-    private final EventType punchType;
-    private final int termid;
     private int id;
+    private final int terminalId;
     private final Badge badge;
-    private PunchAdjustmentType adjustmentType;
-    
-    
-    public Punch(int termid, Badge badge, EventType punchType) {
-        this.termid = termid;
+    private final EventType punchType;
+    private LocalDateTime originalTime; // Initialize in constructor for new punches
+    private LocalDateTime adjustedTime; // Initially null, set later
+    private PunchAdjustmentType adjustmentType = PunchAdjustmentType.NONE;
+
+    // Constructor for new punches
+    public Punch(int terminalId, Badge badge, EventType punchType) {
+        this.terminalId = terminalId;
         this.badge = badge;
         this.punchType = punchType;
-        
+        this.originalTime = LocalDateTime.now(); // Current system time
     }
-    
-    public int gettermid() {
-        return termid;
-    }
-    
-    public Badge getbadge() {
-        return badge;
-    }
-    
-    public EventType getpunchType() {
-        return punchType;
-    }
-    
-    public Punch(int id, int termid, Badge badge, LocalDateTime originalTime, EventType punchType) {
+
+    // Constructor for existing punches
+    public Punch(int id, int terminalId, Badge badge, LocalDateTime originalTime, EventType punchType) {
         this.id = id;
-        this.originalTime = originalTime;
-        this.termid = termid;
+        this.terminalId = terminalId;
         this.badge = badge;
+        this.originalTime = originalTime;
         this.punchType = punchType;
     }
-    
-    public int getid(){
-        return id;
+
+    // Accessors
+    public int getId() { 
+        return id; 
     }
-    public LocalDateTime getoriginalTime() {
-        return originalTime;
+    public int getTerminalId() {
+        return terminalId; 
     }
-    
+    public Badge getBadge() {
+        return badge; 
+    }
+    public EventType getPunchType() {
+        return punchType; 
+    }
+    public LocalDateTime getOriginalTime() {
+        return originalTime; 
+    }
+    public LocalDateTime getAdjustedTime() {
+        return adjustedTime; 
+    }
+    public PunchAdjustmentType getAdjustmentType() {
+        return adjustmentType; 
+    }
+
+    // Setters for adjusted time and type
+    public void setAdjustedTime(LocalDateTime adjustedTime) {
+        this.adjustedTime = adjustedTime; 
+    }
+    public void setAdjustmentType(PunchAdjustmentType adjustmentType) {
+        this.adjustmentType = adjustmentType; 
+    }
+
+    // Pretty print for original timestamp
     public String printOriginal() {
-        
-        return "ID: " + id + "/nTermID: " + termid + "/nBadge: " + badge + "/nLocalDateTime: " + originalTime + "/nPunchType: " + punchType; 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MM/dd/yyyy HH:mm:ss");
+        String formattedDate = originalTime.format(formatter).toUpperCase();
+        return String.format("#%s %s: %s", badge.getId(), punchType, formattedDate);
     }
-    
+
     @Override
     public String toString() {
-        
-        return printOriginal();
-        
+        return printOriginal(); // For now, this will print the original timestamp
     }
 }
