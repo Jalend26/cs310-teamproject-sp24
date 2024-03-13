@@ -18,36 +18,50 @@ public class Punch {
 
     // Constructor for new punches
     public Punch(int terminalId, Badge badge, EventType punchType) {
+        
         this.terminalId = terminalId;
         this.badge = badge;
         this.punchType = punchType;
         this.originalTime = LocalDateTime.now(); // Current system time
+        
     }
 
     // Constructor for existing punches
     public Punch(int id, int terminalId, Badge badge, LocalDateTime originalTime, EventType punchType) {
+        
         this.id = id;
         this.terminalId = terminalId;
         this.badge = badge;
         this.originalTime = originalTime;
         this.punchType = punchType;
+        
     }
 
     // Accessors
     public int getId() { 
+        
         return id; 
+    
     }
     public int getTerminalId() {
+        
         return terminalId; 
+        
     }
     public Badge getBadge() {
+        
         return badge; 
+        
     }
     public EventType getPunchType() {
+        
         return punchType; 
+        
     }
     public LocalDateTime getOriginalTime() {
+        
         return originalTime; 
+        
     }
     public LocalDateTime getAdjustedTime() {
         return adjustedTime; 

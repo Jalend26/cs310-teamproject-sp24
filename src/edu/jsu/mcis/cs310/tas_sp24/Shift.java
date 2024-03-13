@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 //COMPLETED
 public class Shift {
+    
     private final int id;
     private final String description;
     private final LocalTime shiftStart, shiftStop, lunchStart, lunchStop;
@@ -12,6 +13,7 @@ public class Shift {
     private final long lunchDuration, shiftDuration; // Calculated in minutes
 
     public Shift(HashMap<String, String> parameters) {
+        
         this.id = Integer.parseInt(parameters.get("id"));
         this.description = parameters.get("description");
         this.shiftStart = LocalTime.parse(parameters.get("shiftstart"));
@@ -29,15 +31,23 @@ public class Shift {
 
     // Getters
     public int getId() {
+        
         return id; 
     }
+    
     public String getDescription() { 
+        
         return description; 
     }
+    
     public LocalTime getShiftStart() { 
+        
         return shiftStart; 
+        
     }
+    
     public LocalTime getShiftStop() { 
+        
         return shiftStop; 
     }
     public LocalTime getLunchStart() { 
@@ -70,4 +80,7 @@ public class Shift {
         return String.format("%s: %s - %s (%d minutes); Lunch: %s - %s (%d minutes)",
                 description, shiftStart, shiftStop, shiftDuration, lunchStart, lunchStop, lunchDuration);
     }
+    
+    //using stringbuilder would give more control
+    //change formatter to string builder
 }

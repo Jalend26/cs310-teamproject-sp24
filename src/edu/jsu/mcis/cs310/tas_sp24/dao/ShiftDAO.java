@@ -7,13 +7,17 @@ import java.util.HashMap;
 
 //COMPLETED
 public class ShiftDAO {
+    
     private final DAOFactory daoFactory;
 
     public ShiftDAO(DAOFactory daoFactory) {
+        
         this.daoFactory = daoFactory;
+        
     }
     
     public Shift find(int id) {
+        
         Shift shift = null;
         Connection conn = null;
         PreparedStatement pst = null;
@@ -22,13 +26,15 @@ public class ShiftDAO {
         
         
         try {
+            
             conn = daoFactory.getConnection();
             pst = conn.prepareStatement(query);
             pst.setInt(1, id);
             rs = pst.executeQuery();
         
             if (rs.next()) {
-               HashMap<String, String> parameters = new HashMap<>();
+                
+                HashMap<String, String> parameters = new HashMap<>();
                 parameters.put("id", Integer.toString(rs.getInt("id")));
                 parameters.put("description", rs.getString("description"));
                 parameters.put("shiftstart", rs.getTime("shiftstart").toString());
@@ -41,36 +47,46 @@ public class ShiftDAO {
                 parameters.put("lunchthreshold", Integer.toString(rs.getInt("lunchthreshold")));
                 
                 shift = new Shift(parameters);
+                
             }
             
         } catch (SQLException e) {
+            
             throw new DAOException(e.getMessage(), e);
+            
         }
-            return shift;
+        return shift;
     }
     
     
     //ADD SECOND FIND METHOD
     public Shift find(Badge badge) {
+        
+        Shift shift = null;
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
         String query = "SELECT shiftid FROM employee WHERE badgeid = ?";
         
         try{
+            
             conn=daoFactory.getConnection();
             pst = conn.prepareStatement(query);
             pst.setString(1,badge.getId());
             rs = pst.executeQuery();
                 if (rs.next()) {
+                    
                     int shiftId = rs.getInt("shiftid");
                     // Use the first find method to get the Shift object
-                    return find(shiftId);
+                    shift = find(shiftId);
+                    
                 }
             }
         catch (SQLException e) {
+            
             throw new DAOException(e.getMessage(), e);
+            
         }
-        return null;
+        return shift;
     }
 }

@@ -34,5 +34,7 @@ public class Department {
         s.append("Terminal ID: ").append(terminalID);
 
         return s.toString();
+        
+        //unify toString methods
     }
 }

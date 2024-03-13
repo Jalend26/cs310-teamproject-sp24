@@ -63,7 +63,7 @@ public class EmployeeDAO {
 
                         EmployeeType employeeType = EmployeeType.values()[employeetypeid];
 
-                        employee = new Employee(id, firstName, middleName, lastName, inactive, badge, department, shift, employeeType);
+                        employee = new Employee(id, firstName, middleName, lastName, badge, department, shift, employeeType);
 
                     }
                 }

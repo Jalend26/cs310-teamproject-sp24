@@ -13,11 +13,13 @@ public class Employee {
     private final LocalDateTime active;
     private final String firstName;
     private final String lastName;
-    private final char middleName;
+    private final char middleName; //change to string
     private final Shift shift;
     private final EmployeeType description;
     private final Department department;
     
+    //change constructor to hashmap instead of regular constructor
+    //chagne middleName to String
     public Employee(int id, String firstName, String lastName, char middleName, Shift shift, LocalDateTime active, EmployeeType description, Badge badge, Department department) {
         this.id = id;
         this.firstName = firstName;
@@ -75,6 +77,9 @@ public class Employee {
         
         return s.toString();
         */
+        
+        //do not use successive appends
+        //use string builder instead
         return "ID #" + id + ": " + lastName + ", " + firstName + " " + middleName + " (" + badge + "), " + " Type:  " + description + ", " + " Department: " + department + ", " + " Active: " + active;
     }
 }

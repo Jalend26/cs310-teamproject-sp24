@@ -43,13 +43,7 @@ public class DepartmentDAO {
                     throw new DAOException(e.getMessage());
                 }
             }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage());
-                }
-            }
+            
         }
         return department;
     }
