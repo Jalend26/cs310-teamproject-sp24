@@ -69,6 +69,7 @@ public class PunchDAO {
             
             
             try {
+                
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 

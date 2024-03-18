@@ -64,29 +64,41 @@ public class Punch {
         
     }
     public LocalDateTime getAdjustedTime() {
+        
         return adjustedTime; 
+        
     }
     public PunchAdjustmentType getAdjustmentType() {
+        
         return adjustmentType; 
+        
     }
 
     // Setters for adjusted time and type
     public void setAdjustedTime(LocalDateTime adjustedTime) {
+        
         this.adjustedTime = adjustedTime; 
+        
     }
     public void setAdjustmentType(PunchAdjustmentType adjustmentType) {
+        
         this.adjustmentType = adjustmentType; 
+        
     }
 
     // Pretty print for original timestamp
     public String printOriginal() {
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MM/dd/yyyy HH:mm:ss");
         String formattedDate = originalTime.format(formatter).toUpperCase();
         return String.format("#%s %s: %s", badge.getId(), punchType, formattedDate);
+        
     }
 
     @Override
     public String toString() {
+        
         return printOriginal(); // For now, this will print the original timestamp
+        
     }
 }

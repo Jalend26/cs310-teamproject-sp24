@@ -13,12 +13,16 @@ public enum PunchAdjustmentType {
     private final String description;
 
     private PunchAdjustmentType(String d) {
+        
         description = d;
+        
     }
 
     @Override
     public String toString() {
+        
         return description;
+        
     }
 
 }

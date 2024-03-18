@@ -49,36 +49,55 @@ public class Shift {
     public LocalTime getShiftStop() { 
         
         return shiftStop; 
+        
     }
     public LocalTime getLunchStart() { 
+        
         return lunchStart;
+        
     }
     public LocalTime getLunchStop() { 
+        
         return lunchStop; 
+        
     }
     public int getRoundInterval() { 
+        
         return roundInterval; 
+        
     }
     public int getGracePeriod() { 
+        
         return gracePeriod;
+        
     }
     public int getDockPenalty() { 
+        
         return dockPenalty;
+        
     }
     public int getLunchThreshold() {
+        
         return lunchThreshold; 
+        
     }
     public long getLunchDuration() { 
+        
         return lunchDuration;
+        
     }
     public long getShiftDuration() { 
+        
         return shiftDuration; 
+        
     }
 
     @Override
     public String toString() {
+        
         return String.format("%s: %s - %s (%d minutes); Lunch: %s - %s (%d minutes)",
                 description, shiftStart, shiftStop, shiftDuration, lunchStart, lunchStop, lunchDuration);
+        
     }
     
     //using stringbuilder would give more control

@@ -7,12 +7,16 @@ public enum EmployeeType {
     private final String description;
 
     private EmployeeType(String d) {
+        
         description = d;
+        
     }
 
     @Override
     public String toString() {
+        
         return description;
+        
     }
     
 }

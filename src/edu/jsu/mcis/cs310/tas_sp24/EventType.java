@@ -9,12 +9,16 @@ public enum EventType {
     private final String description;
 
     private EventType(String d) {
+        
         description = d;
+        
     }
 
     @Override
     public String toString() {
+        
         return description;
+        
     }
 
 }
