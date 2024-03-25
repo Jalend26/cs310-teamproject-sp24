@@ -85,6 +85,10 @@ public class Punch {
         this.adjustmentType = adjustmentType; 
         
     }
+    
+    public void adjust(Shift s){
+        
+    } 
 
     // Pretty print for original timestamp
     public String printOriginal() {
