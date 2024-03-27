@@ -50,7 +50,7 @@ public final class DAOFactory {
     
     public EmployeeDAO getEmployeeDAO(){
         
-        return new EmployeeDAO(this);
+        return new EmployeeDAO(this); //added getter method for EmployeeDAO
         
     }
 }

@@ -19,7 +19,7 @@ public class Employee {
     private final int employeetypeid;
     private final int departmentid;
 
-    //change constructor to hashmap instead of regular constructor
+    //change constructor to hashmap instead of regular constructor9
     public Employee(HashMap<String, String> parameters) {
         
         this.id = Integer.parseInt(parameters.get("id"));
