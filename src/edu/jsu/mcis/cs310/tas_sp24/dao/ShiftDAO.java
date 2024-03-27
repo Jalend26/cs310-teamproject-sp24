@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class ShiftDAO {
     
     private final DAOFactory daoFactory;
+    private static final String QUERY_FIND = "SELECT * FROM shift WHERE id = ?";
 
     public ShiftDAO(DAOFactory daoFactory) {
         
@@ -22,13 +23,12 @@ public class ShiftDAO {
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM shift WHERE id = ?";
         
         
         try {
             
             conn = daoFactory.getConnection();
-            pst = conn.prepareStatement(query);
+            pst = conn.prepareStatement(QUERY_FIND);
             pst.setInt(1, id);
             rs = pst.executeQuery();
         

@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 
 //COMPLETTED
 public class PunchDAO {
+
+    private static final String QUERY_FIND = "SELECT * FROM `event` WHERE id = ?";
     
     private final DAOFactory daoFactory;
     
@@ -29,14 +31,13 @@ public class PunchDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String query = "SELECT * FROM `event` WHERE id = ?";
 
         try {
             
             // Get a connection from the DAOFactory
             Connection conn = daoFactory.getConnection();
             // Prepare the SQL statement
-            ps = conn.prepareStatement(query);
+            ps = conn.prepareStatement(QUERY_FIND);
             // Set the ID parameter
             ps.setInt(1, id);
             // Execute the query
@@ -81,5 +82,9 @@ public class PunchDAO {
         }
 
         return punch;
+    }
+
+    public Punch create(Punch punch){
+        
     }
 }
