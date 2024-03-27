@@ -97,8 +97,8 @@ public class EmployeeDAO {
             rs = pst.executeQuery();
             if(rs.next()){
 
-                int employeeid = rs.getInt("employeeid");
-                employee = find(employeeid);
+                int employeeid = rs.getInt("id");
+                employee = find(id);
             }
         }
         catch (SQLException e) {
