@@ -10,14 +10,14 @@ import java.util.HashMap;
 public class Employee {
 
     private final int id;
-    private final Badge badge;
+    private final String badgeid;
     private final LocalDateTime active;
     private final String firstName;
     private final String lastName;
     private final String middleName;
-    private final Shift shift;
-    private final EmployeeType description;
-    private final Department department;
+    private final int shiftid;
+    private final int employeetypeid;
+    private final int departmentid;
 
     //change constructor to hashmap instead of regular constructor
     public Employee(HashMap<String, String> parameters) {
@@ -26,11 +26,12 @@ public class Employee {
         this.firstName = parameters.get("firstName");
         this.lastName = parameters.get("lastName");
         this.middleName = parameters.get("middleName");
-        this.shift = Shift.parse(parameters.get("shift"));
+        this.shiftid = Integer.parseInt(parameters.get("shiftid"));
         this.active = LocalDateTime.parse(parameters.get("active"));
-        this.description = EmployeeType.parse(parameters.get(description));
-        this.badge = Badge.parse(parameters.get(badge));
-        this.department = Department.parse(parameters.get(department));
+        this.employeetypeid = Integer.parseInt(parameters.get("employeetypeid"));
+        this.badgeid = parameters.get("badgeid");
+        this.departmentid = Integer.parseInt(parameters.get("departmentid"));
+        
     }
 
     public int getId() {
@@ -39,9 +40,9 @@ public class Employee {
         
     }
 
-    public Badge getbadge() {
+    public String getbadge() {
         
-        return badge;
+        return badgeid;
         
     }
 
@@ -69,21 +70,21 @@ public class Employee {
         
     }
 
-    public Shift getshift() {
+    public int getshiftid() {
         
-        return shift;
-        
-    }
-
-    public EmployeeType getdescription() {
-        
-        return description;
+        return shiftid;
         
     }
 
-    public Department getdepartment() {
+    public int getemployeeTypeid() {
         
-        return department;
+        return employeetypeid;
+        
+    }
+
+    public int getdepartmentid() {
+        
+        return departmentid;
         
     }
 
@@ -96,13 +97,12 @@ public class Employee {
         s.append(" ").append(lastName).append(", ");
         s.append("").append(firstName).append(" ");
         s.append("").append(middleName).append(" ");
-        s.append("(").append(badge).append("), ");
-        s.append("Type: ").append(description).append(", ");
-        s.append("Department: ").append(department).append(", ");
+        s.append("(").append(badgeid).append("), ");
+        s.append("Type: ").append(employeetypeid).append(", ");
+        s.append("Department: ").append(departmentid).append(", ");
         s.append("Active: ").append(active);
 
         return s.toString();
         
-        //" Active: " + active;
     }
 }
