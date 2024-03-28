@@ -1,7 +1,10 @@
 package edu.jsu.mcis.cs310.tas_sp24.dao;
 
 
+import edu.jsu.mcis.cs310.tas_sp24.Badge;
+import edu.jsu.mcis.cs310.tas_sp24.Department;
 import edu.jsu.mcis.cs310.tas_sp24.Employee;
+
 
 
 import java.sql.*;
@@ -10,10 +13,9 @@ import java.util.HashMap;
 public class EmployeeDAO {
 
     private static final String QUERY_FIND_1 = "SELECT * FROM employee where id = ?";
-    private static final String QUERY_FIND_2 = "SELECT employeeid FROM employee where badgeid = ?";
+    private static final String QUERY_FIND_2 = "SELECT id FROM employee where badgeid = ?";
 
     private final DAOFactory daoFactory;
-    int employeetypeid; //ask if this is correct 1/2
 
     EmployeeDAO(DAOFactory daoFactory) {
         
@@ -21,7 +23,7 @@ public class EmployeeDAO {
         
     }
     
-    //first find method
+    //first find method - Completed by Qays (tests passed)
     public Employee find(int id) {
 
         Employee employee = null;
@@ -36,23 +38,28 @@ public class EmployeeDAO {
             pst.setInt(1, id);
             rs = pst.executeQuery();
 
-            if(rs.next()){
-
-                HashMap<String, String> parameters = new HashMap<>();
-                parameters.put("id", Integer.toString(rs.getInt("id")));
+            if(rs.next()) {
+                HashMap<String, Object> parameters = new HashMap<>();
+                parameters.put("id", rs.getInt("id")); 
                 parameters.put("firstName", rs.getString("firstname"));
                 parameters.put("lastName", rs.getString("lastname"));
                 parameters.put("middleName", rs.getString("middlename"));
-                parameters.put("shiftid", Integer.toString(rs.getInt("shiftid")));
-                parameters.put("active", rs.getTime(("active")).toString());
+                parameters.put("active", rs.getTimestamp("active").toLocalDateTime()); 
                 
-                parameters.put("employeetypeid", Integer.toString(rs.getInt(employeetypeid))); //2/2
+                // Fetch and include the entire Badge object
+                BadgeDAO badgeDAO = daoFactory.getBadgeDAO();
+                Badge badge = badgeDAO.find(rs.getString("badgeid"));
+                parameters.put("badge", badge); 
+                
+                // Fetch and include the entire Department object
+                DepartmentDAO departmentDAO = daoFactory.getDepartmentDAO();
+                Department department = departmentDAO.find(rs.getInt("departmentid"));
+                parameters.put("department", department); 
 
-                parameters.put("badgeid", rs.getString("badgeid"));
-                parameters.put("departmentid", Integer.toString(rs.getInt("departmentid")));
+                int employeetypeId = rs.getInt("employeetypeid");
+                parameters.put("employeetypeid", employeetypeId); // Use the ID here, conversion in Employee constructor
 
                 employee = new Employee(parameters);
-
             }
            
 
@@ -82,6 +89,7 @@ public class EmployeeDAO {
         return employee;
     }
 
+     //Second find method - Completed by Qays (tests passed)
     public Employee find(Badge badge){
 
         Employee employee = null;
@@ -93,12 +101,13 @@ public class EmployeeDAO {
 
             conn = daoFactory.getConnection();
             pst = conn.prepareStatement(QUERY_FIND_2);
-            pst.setInt(1, badge.getId());
+            pst.setString(1, badge.getId());
             rs = pst.executeQuery();
             if(rs.next()){
 
-                int employeeid = rs.getInt("id");
-                employee = find(id);
+                String id =(rs.getString("id"));
+                int employeeid = Integer.parseInt(id);
+                employee = find(employeeid);
             }
         }
         catch (SQLException e) {
@@ -110,5 +119,4 @@ public class EmployeeDAO {
 
 
     }
-
 }

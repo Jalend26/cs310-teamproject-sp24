@@ -5,7 +5,7 @@ import edu.jsu.mcis.cs310.tas_sp24.Badge;
 import java.sql.*;
 import java.util.HashMap;
 
-//COMPLETED
+//COMPLETED by Qays
 public class ShiftDAO {
     
     private final DAOFactory daoFactory;

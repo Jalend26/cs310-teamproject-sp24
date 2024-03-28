@@ -3,7 +3,7 @@ package edu.jsu.mcis.cs310.tas_sp24;
 import java.time.LocalTime;
 import java.util.HashMap;
 
-//COMPLETED
+//COMPLETED by Qays
 public class Shift {
     
     private final int id;

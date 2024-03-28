@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 
-//COMPLETTED
+//COMPLETTED by Qays
 public class PunchDAO {
 
     private static final String QUERY_FIND = "SELECT * FROM `event` WHERE id = ?";
