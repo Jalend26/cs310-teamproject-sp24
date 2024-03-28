@@ -6,7 +6,6 @@ import edu.jsu.mcis.cs310.tas_sp24.Punch;
 
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,7 +83,31 @@ public class PunchDAO {
         return punch;
     }
 
-    public Punch create(Punch punch){
+    
+    public int create(Punch punch) {
         
+        int punchId = 0; // Default value to return if the operation fails
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            
+            // Step 1: Authorize the Punch
+            if (punch.getTerminalId() == 0 || authorizePunch(punch)) {
+                
+                conn = daoFactory.getConnection();
+                String query = "INSERT INTO event (terminalid, badgeid, timestamp, eventtypeid) VALUES (?, ?, ?, ?)";
+                //set up the prepared statment
+                
+            }
+        } catch(SQLException e){}
+        return punchId; // Return the punch ID (or 0 if the operation failed)
     }
+    
+    private boolean authorizePunch(Punch punch){
+        
+        return true;
+    }
+
 }
