@@ -86,6 +86,7 @@ public class PunchDAO {
     
     public int create(Punch punch) {
         
+<<<<<<< Updated upstream
         int punchId = 0; // Default value to return if the operation fails
         Connection conn = null;
         PreparedStatement pst = null;
@@ -103,6 +104,10 @@ public class PunchDAO {
             }
         } catch(SQLException e){}
         return punchId; // Return the punch ID (or 0 if the operation failed)
+=======
+        return null;
+        
+>>>>>>> Stashed changes
     }
     
     private boolean authorizePunch(Punch punch){

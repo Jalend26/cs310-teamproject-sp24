@@ -2,7 +2,10 @@ package edu.jsu.mcis.cs310.tas_sp24.dao;
 
 
 import edu.jsu.mcis.cs310.tas_sp24.Badge;
+<<<<<<< Updated upstream
 import edu.jsu.mcis.cs310.tas_sp24.Department;
+=======
+>>>>>>> Stashed changes
 import edu.jsu.mcis.cs310.tas_sp24.Employee;
 
 
