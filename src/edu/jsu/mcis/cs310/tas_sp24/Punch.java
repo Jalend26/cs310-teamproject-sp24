@@ -1,6 +1,8 @@
 package edu.jsu.mcis.cs310.tas_sp24;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -87,6 +89,10 @@ public class Punch {
     }
     
     public void adjust(Shift s){
+        
+        LocalTime punchTime = originalTime.toLocalTime();
+        
+        LocalDate punchDate = originalTime.toLocalDate();
         
     } 
 
