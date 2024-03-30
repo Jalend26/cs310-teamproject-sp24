@@ -6,4 +6,7 @@ package edu.jsu.mcis.cs310.tas_sp24;
  */
 public class Absenteeism {
     
+    private final String id;
+    private final LocalDate payperiod;
+    
 }

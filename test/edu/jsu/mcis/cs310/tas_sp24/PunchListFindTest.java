@@ -36,7 +36,7 @@ public class PunchListFindTest {
 
         /* Retrieve Punch List #1 (created by DAO) */
         
-        ArrayList<Punch> p1 = punchDAO.list(b, ts);
+        ArrayList<Punch> p1 = (ArrayList<Punch>) punchDAO.list(b, ts);
 
         /* Export Punch List #1 Contents to StringBuilder */
         
@@ -87,7 +87,7 @@ public class PunchListFindTest {
 
         /* Retrieve Punch List #1 (created by DAO) */
         
-        ArrayList<Punch> p1 = punchDAO.list(b, ts);
+        ArrayList<Punch> p1 = (ArrayList<Punch>) punchDAO.list(b, ts);
 
         /* Export Punch List #1 Contents to StringBuilder */
         
@@ -139,7 +139,7 @@ public class PunchListFindTest {
 
         /* Retrieve Punch List #1 (created by DAO) */
         
-        ArrayList<Punch> p1 = punchDAO.list(b, ts);
+         ArrayList<Punch> p1 = (ArrayList<Punch>) punchDAO.list(b, ts);
 
         /* Export Punch List #1 Contents to StringBuilder */
         

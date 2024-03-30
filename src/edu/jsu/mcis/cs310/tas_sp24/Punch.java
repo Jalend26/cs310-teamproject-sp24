@@ -90,10 +90,9 @@ public class Punch {
     
     public void adjust(Shift s){
         
-        LocalTime punchTime = originalTime.toLocalTime();
-        
         LocalDate punchDate = originalTime.toLocalDate();
-        
+        LocalTime punchTime = originalTime.toLocalTime();
+          
     } 
 
     // Pretty print for original timestamp
