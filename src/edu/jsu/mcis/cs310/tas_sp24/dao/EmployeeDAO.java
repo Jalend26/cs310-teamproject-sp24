@@ -2,7 +2,6 @@ package edu.jsu.mcis.cs310.tas_sp24.dao;
 
 
 import edu.jsu.mcis.cs310.tas_sp24.Badge;
-import edu.jsu.mcis.cs310.tas_sp24.Employee;
 import edu.jsu.mcis.cs310.tas_sp24.Department;
 import edu.jsu.mcis.cs310.tas_sp24.Employee;
 import java.sql.*;
@@ -10,8 +9,8 @@ import java.util.HashMap;
 
 public class EmployeeDAO {
 
-    private static final String QUERY_FIND_1 = "SELECT * FROM employee where id = ?";
-    private static final String QUERY_FIND_2 = "SELECT id FROM employee where badgeid = ?";
+    private static final String QUERY_FIND_1 = "SELECT * FROM employee WHERE id = ?";
+    private static final String QUERY_FIND_2 = "SELECT id FROM employee WHERE badgeid = ?";
 
     private final DAOFactory daoFactory;
 

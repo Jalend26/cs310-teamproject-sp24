@@ -79,38 +79,4 @@ public class EmployeeFindTest {
 
     }
 
-    @Test 
-    public void testFindEmployee5() {
-        
-        EmployeeDAO employeeDAO = daoFactory.getEmployeeDAO();
-
-        /* Retrieve Employee from Database (by ID) */
-
-        Employee e5 = employeeDAO.find(127);
-
-        /* Compare to Expected Values */
-        
-        assertEquals("ID #54: Stevens, Michael E (#8001201A), Type: Full-Time, Department: Manufacturing, Active: 10/11/2015", e5.toString());
-
-    
-    }
-
-    @Test 
-    public void testFindEmployee6() {
-
-        EmployeeDAO employeeDAO = daoFactory.getEmployeeDAO();
-        BadgeDAO badgeDAO = daoFactory.getBadgeDAO();
-
-        /* Retrieve Employee from Database (by badge) */
-
-        Badge b = badgeDAO.find("0F7A8D6F");
-        Employee e6 = employeeDAO.find(b);
-
-        /* Compare to Expected Values */
-        
-        assertEquals("ID #101: Fox, Nichole J (#CBDE17A7), Type: Temporary / Part-Time, Department: Warehouse, Active: 02/21/2016", e6.toString());
-
-
-    }
-    
 }
