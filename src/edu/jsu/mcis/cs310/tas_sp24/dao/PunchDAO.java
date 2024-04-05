@@ -1,22 +1,20 @@
 package edu.jsu.mcis.cs310.tas_sp24.dao;
 
 import edu.jsu.mcis.cs310.tas_sp24.Badge;
+import edu.jsu.mcis.cs310.tas_sp24.Department;
+import edu.jsu.mcis.cs310.tas_sp24.Employee;
 import edu.jsu.mcis.cs310.tas_sp24.EventType;
 import edu.jsu.mcis.cs310.tas_sp24.Punch;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.time.*;
+import java.util.*;
 
 
 //COMPLETTED by Qays
 public class PunchDAO {
 
     private static final String QUERY_FIND = "SELECT * FROM `event` WHERE id = ?";
+    private static final String QUERY_CREATE = "INSERT INTO event (terminalid, badgeid, timestamp, eventtypeid) VALUES (?,?,?,?)";
     
     private final DAOFactory daoFactory;
     
@@ -95,12 +93,33 @@ public class PunchDAO {
         try {
             
             // Step 1: Authorize the Punch
-            if (punch.getTerminalId() == 0 || authorizePunch(punch)) {
+            if (authorizePunch(punch)) {
                 
-                conn = daoFactory.getConnection();
-                String query = "INSERT INTO event (terminalid, badgeid, timestamp, eventtypeid) VALUES (?, ?, ?, ?)";
                 //set up the prepared statment
+                conn = daoFactory.getConnection();
+                pst = conn.prepareStatement(QUERY_CREATE, Statement.RETURN_GENERATED_KEYS);
+                pst.setInt(1, punch.getTerminalId());
                 
+                pst.setString(2, punch.getBadge().getId());
+                
+                java.sql.Timestamp timestamp = new Timestamp(new java.util.Date().getTime());
+                LocalDateTime local = timestamp.toLocalDateTime();
+                local = local.withNano(0);
+                java.sql.Timestamp TS2 = java.sql.Timestamp.valueOf(local);
+                pst.setTimestamp(3, TS2);
+                
+                pst.setInt(4, punch.getPunchType().ordinal());
+                
+                int affectedRows = pst.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating punch failed, no rows affected.");
+                }
+                
+                rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    punchId = rs.getInt(1); // Retrieve the generated punch ID
+                }
+             
             }
         } 
         
@@ -112,7 +131,19 @@ public class PunchDAO {
     
     private boolean authorizePunch(Punch punch){
         
-        return true;
+        int ID_1 = punch.getTerminalId();
+        Badge badge = punch.getBadge();
+        Employee employee = daoFactory.getEmployeeDAO().find(badge);
+        Department department = daoFactory.getDepartmentDAO().find(employee.getId());
+        int ID_2 = department.getTerminalID();
+        
+        if(ID_1 == 0){
+            return true;
+        }
+        else if(ID_2 == ID_1){
+            return true;
+        }
+        return false;
     }
     
     
