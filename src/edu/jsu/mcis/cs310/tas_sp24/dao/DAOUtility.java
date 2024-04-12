@@ -8,13 +8,15 @@ import com.github.cliftonlabs.json_simple.*;
 import edu.jsu.mcis.cs310.tas_sp24.Punch;
 import edu.jsu.mcis.cs310.tas_sp24.Shift;
 import java.util.ArrayList;
+import java.math.BigDecimal;
+
 
 /**
- * 
- * Utility class for DAOs.  This is a final, non-constructable class containing
+ *
+ * Utility class for DAOs. This is a final, non-constructable class containing
  * common DAO logic and other repeated and/or standardized code, refactored into
  * individual static methods.
- * 
+ *
  */
 public class DAOUtility {
 
@@ -41,5 +43,15 @@ public class DAOUtility {
         }
 
         return totalMinutes;
+    }
+
+    public static BigDecimal calculateAbsenteeism(ArrayList<Punch> punchlist, Shift s) {
+        int minutesWorked = calculateTotalMinutes(punchlist, s);
+
+        long expectedMinutes = (s.getShiftDuration() * 5) - (s.getLunchDuration() * 5);
+
+        double percentage = ((double) minutesWorked / expectedMinutes);
+
+        return BigDecimal.valueOf((1 - percentage) * 100);
     }
 }
