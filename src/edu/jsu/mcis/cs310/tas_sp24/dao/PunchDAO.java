@@ -123,7 +123,9 @@ public class PunchDAO {
             }
         } 
         
-        catch(SQLException e) {}
+        catch(SQLException e) {
+        System.err.println("SQLException: " + e.getMessage()); 
+        }
         
         return punchId; // Return the punch ID (or 0 if the operation failed)
         
@@ -195,5 +197,5 @@ public class PunchDAO {
 
         return punches;
     }
-
+    
 }
