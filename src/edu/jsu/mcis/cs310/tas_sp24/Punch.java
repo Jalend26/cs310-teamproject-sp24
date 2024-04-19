@@ -88,7 +88,7 @@ public class Punch {
         
     }
     
-    Punch void adjust(Shift s){
+    public void adjust(Shift s){
         
         //initialize adjustment type to NONE
         this.adjustmentType = PunchAdjustmentType.NONE;
