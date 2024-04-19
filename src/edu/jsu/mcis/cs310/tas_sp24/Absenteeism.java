@@ -2,7 +2,6 @@ package edu.jsu.mcis.cs310.tas_sp24;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 /**
  *
  * @author jalen

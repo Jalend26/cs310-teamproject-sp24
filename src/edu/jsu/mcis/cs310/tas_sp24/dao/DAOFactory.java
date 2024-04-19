@@ -45,12 +45,15 @@ public final class DAOFactory {
     }
 
     public DepartmentDAO getDepartmentDAO() {
-        return new DepartmentDAO(this); // added getter method for DepartmentDAO - William
+        return new DepartmentDAO(this); // added getter method for DepartmentDAO
     }
     
     public EmployeeDAO getEmployeeDAO(){
         
         return new EmployeeDAO(this); //added getter method for EmployeeDAO
         
+    }
+    public AbsenteeismDAO getAbsenteeismDAO() {
+        return new AbsenteeismDAO(this); //added getter method for AbsenteeismDAO
     }
 }
