@@ -1,7 +1,5 @@
 package edu.jsu.mcis.cs310.tas_sp24.dao;
 
-import java.time.*;
-import java.util.*;
 import java.time.LocalDate;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -10,7 +8,7 @@ import edu.jsu.mcis.cs310.tas_sp24.Absenteeism;
 
 /**
  *
- * @author jalen / William
+ * @author jalen, William
  */
 public class AbsenteeismDAO {
 
@@ -29,8 +27,6 @@ public class AbsenteeismDAO {
         Absenteeism absenteeism = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
-        payperiod = payperiod.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
 
         try {
 
@@ -78,11 +74,7 @@ public class AbsenteeismDAO {
         return absenteeism;
     }
 
-    /**
-     * Inserts a new Absenteeism object into the absenteeism table.
-     *
-     * @param absenteeism
-     */
+
     public void create(Absenteeism absenteeism) {
 
         PreparedStatement ps = null;
